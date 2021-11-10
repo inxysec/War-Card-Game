@@ -1,10 +1,8 @@
 package DataStructures;
 
 
-import Exceptions.EmptyCollectionException;
 import ADTs.StackADT;
-
-import java.util.ArrayList;
+import Exceptions.EmptyCollectionException;
 
 /**
  * An array-based StackADT.
@@ -33,7 +31,7 @@ public class ArrayStack<E> implements StackADT<E> {
     public ArrayStack() {
         //TODO Instantiate the array-based data collection
         // with the default capacity constant, DEFAULT_CAPACITY
-        ArrayList<E> stack = new ArrayList<E>(DEFAULT_CAPACITY);
+        this.data = (E[])(new Object[DEFAULT_CAPACITY]);
         this.top = 0;
     }
 
@@ -48,8 +46,8 @@ public class ArrayStack<E> implements StackADT<E> {
         }
 
         //TODO Add targer to the top of the stack (data array)
-        
-
+        data[top] = target;
+        top++;
     }
 
     /** Double the length of data. */
@@ -75,8 +73,11 @@ public class ArrayStack<E> implements StackADT<E> {
 
         //TODO Remove and return the top item on the stack 
         //(data array)
+        top--;
+        E result = data[top];
+        data[top] = null;
 
-
+        return result;
     }
     
     /**
@@ -93,6 +94,7 @@ public class ArrayStack<E> implements StackADT<E> {
         //(index of the data array: top -1) 
         //Do not modify the Stack.
 
+        return data[top-1];
         
 
     }
@@ -105,7 +107,7 @@ public class ArrayStack<E> implements StackADT<E> {
     @Override
     public boolean isEmpty() {
         //TODO Evaluate whether the stack is empty
-        
+        return (top == 0);
 
     }
 
@@ -116,7 +118,7 @@ public class ArrayStack<E> implements StackADT<E> {
      */
     protected boolean isFull() {
         //TODO Evaluate whether the queue is full
-        
+        return (top == data.length);
 
     }
     
@@ -128,7 +130,7 @@ public class ArrayStack<E> implements StackADT<E> {
     public int size() {
         //TODO return the size of the stack, identified by 
         //the variable top
-        
+        return top;
 
     }
 }

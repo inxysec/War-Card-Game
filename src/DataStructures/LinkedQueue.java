@@ -28,7 +28,9 @@ public class LinkedQueue<T> implements QueueADT<T> {
     public LinkedQueue() {
         //TODO Instantiate the linked list-based data 
         //collection
-        
+        this.front = null;
+        this.rear = null;
+        this.size = 0;
     }
     
     /**
@@ -44,8 +46,16 @@ public class LinkedQueue<T> implements QueueADT<T> {
          * the rear of the queue
         **/
 
-
-
+        SinglyLinkedNode<T> temp = new SinglyLinkedNode<>();
+        temp.setElement(target);
+        if (size == 0) {
+            temp = this.front;
+            temp = this.rear;
+            this.size += 1;
+        } else {
+            this.rear.setNext(temp);
+            this.rear = temp;
+        }
     }
     
     /**
@@ -59,9 +69,19 @@ public class LinkedQueue<T> implements QueueADT<T> {
         * Then remove the data item from the queue
         * Do not forget to change the size
         **/
+        SinglyLinkedNode<T> temp = new SinglyLinkedNode<>();
 
-
-
+        if (isEmpty()) {
+            throw new EmptyCollectionException();
+        } else if(this.size == 1){
+            this.front = null;
+            this.rear = null;
+            this.size -= 1;
+        } else {
+            temp.setElement(this.front.getElement());
+            this.front = this.front.getNext();
+        }
+        return temp.getElement();
     }
     
     /**
@@ -72,7 +92,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
     @Override
     public boolean isEmpty() {
         //TODO Evaluate whether the queue is empty
-        
+        return this.size == 0;
 
     }
     
@@ -89,7 +109,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
         }
 
         /**TODO return element in the frontmost position of the array **/
-
+        return this.front.getElement();
         
     }
     
@@ -100,7 +120,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
     @Override
     public int size() {
         //TODO return the size of the Queue
-        
+        return this.size;
 
     }
 }
