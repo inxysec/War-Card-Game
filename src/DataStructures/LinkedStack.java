@@ -24,8 +24,10 @@ public class LinkedStack<T> implements StackADT<T> {
     public LinkedStack() {
         //TODO Instantiate the linked list-based data 
         //collection
-        this.top = null;
-        this.size = 0;
+        
+        // Default parameters for the new stack.
+        top = null;
+        size = 0;
     }
     
     /**
@@ -36,11 +38,19 @@ public class LinkedStack<T> implements StackADT<T> {
     public void push(T target) {
         //TODO Add targer to the top of the stack 
         //(represented by the top reference node)
-        SinglyLinkedNode<T> temp = new SinglyLinkedNode<T>();
-        temp.setElement(target);
-        temp.setNext(this.top);
-        this.top = temp;
-        this.size += 1;
+        
+        // Get a reference for the old top.
+        SinglyLinkedNode<T> temp = top;
+        
+        // Reinitialize top with a new node.
+        top = new SinglyLinkedNode<>();
+        
+        // Set the new nodes paramaeters (Data and Next)
+        top.setElement(target);
+        top.setNext(temp);
+        
+        // Increase the stack size.
+        size++;
     }
 
     /**
@@ -58,11 +68,18 @@ public class LinkedStack<T> implements StackADT<T> {
         //TODO Remove and return the top item on the stack
         //Corresponding to retrieve the top node and reset 
         //the top reference to the reference of its next node
-        SinglyLinkedNode<T> temp = new SinglyLinkedNode<T>();
-        temp = this.top;
-
-        this.top = this.top.getNext();
-        return temp.getElement();
+        
+        // Get the data of the top node.
+        T temp = top.getElement();
+        
+        // Set the new top as the next node in the stack.
+        top = top.getNext();
+        
+        // Decrease the size of the stack.
+        size--;
+        
+        // Return the data from the old top node.
+        return temp;
 
     }
     
@@ -82,8 +99,9 @@ public class LinkedStack<T> implements StackADT<T> {
         //not modify the stack.
         //Corresponding to return the element in the node 
         //referred by the reference top
-
-        return this.top.getElement();
+        
+        // Return the top nodes element;
+        return top.getElement();
 
     }
     
@@ -95,11 +113,9 @@ public class LinkedStack<T> implements StackADT<T> {
     @Override
     public boolean isEmpty() {
         //TODO Evaluate whether the stack is empty
-        if (size == 0) {
-            return true;
-        }
-
-        return false;
+        
+        // If the top has nothing, return true. Else, return false.
+        return top == null;
     }
     
      /**
@@ -109,7 +125,9 @@ public class LinkedStack<T> implements StackADT<T> {
     @Override
     public int size() {
         //TODO return the size of the stack 
-        return this.size;
+        
+        // Returns the size of the stack.
+        return size;
     }
 }
 

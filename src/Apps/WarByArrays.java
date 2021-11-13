@@ -36,7 +36,8 @@ public class WarByArrays {
     public WarByArrays(boolean isShuffled) {
         //TODO Initialize two piles in hand
         //     Initialize the hand1 and hand2 variables
-        
+        hand1 = new ArrayCircularQueue<Card>();
+        hand2 = new ArrayCircularQueue<Card>();
 
 
 
@@ -50,7 +51,8 @@ public class WarByArrays {
             //pile. deck.deal() is to deal a card
             //insert the dealt card into hand1 and hand2 
             //data structures.
-
+            hand1.enqueue(deck.deal());
+            hand2.enqueue(deck.deal());
 
 
 

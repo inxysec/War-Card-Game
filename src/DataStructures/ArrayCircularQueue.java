@@ -31,6 +31,11 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
  the index of the frontmost element in this QueueADT. */
     private int front;
 
+    /** Declare a int variable named front, which represents 
+ the index of the frontmost element in this QueueADT. */
+    private int rear;
+    
+    
     /** Declare a int variable named size, which represents 
  the number of items currently in this QueueADT. */
     private int size;
@@ -41,6 +46,13 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
         //TODO Instantiate the array-based data collection
         // with the default capacity constant, DEFAULT_CAPACITY
         
+        // Create a new array for the data.
+        this.data = (E[])(new Object[DEFAULT_CAPACITY]);
+        
+        // Default values for the circular queue.
+        this.size = 0;
+        this.front = -1;
+        this.rear = -1;
 
     }
 
@@ -59,6 +71,27 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
          * Do not forget to change the size
         **/
         
+        // If the queue is full, expand capacity.
+        if (isFull()) {
+            expandCapacity();
+        }
+        
+        else {
+            
+            // Set rear equal to rear + 1;
+            rear = (rear + 1);
+            
+            // push the target into the 'rear' of the circular queue
+            data[rear] = target;
+            
+            // Increase the size of the circular queue
+            size++;
+            
+            // If the queue is empty, front is equal to rear.
+            if (front == -1) {
+                front = rear;
+            }
+        }
 
 
     }
@@ -81,7 +114,29 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
         * Return the variable result.
         **/
         
-
+        // Create a new reference element.
+        E element;
+        
+        // If the queue is empty, throw an exception
+        if (isEmpty()) {
+            throw new EmptyCollectionException("Queue is empty.");
+        } else {
+            
+            // Set the data at the front of the queue equal to the reference element.
+            element = data[front];
+            
+            // Set the data at the front of the array equal to null.
+            data[front] = null;
+            
+            // Set the new front as the next element.
+            front = (front + 1);
+            
+            // Decrease the size of the queue.
+            size--;
+        }
+        
+        // Return the old element.
+        return element;
 
     }
 
@@ -105,6 +160,8 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
     public boolean isEmpty() {
         //TODO Evaluate whether the queue is empty
         
+        // Return the boolean value of the size of the queue being equal to 0.
+        return size == 0;
 
     }
 
@@ -116,6 +173,8 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
     protected boolean isFull() {
         //TODO Evaluate whether the queue is full
         
+        // Return the boolean value of the size of the queue being equal to the length of the data array.
+        return size == data.length;
 
     }
     
@@ -132,7 +191,9 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
         }
 
         /**TODO return element in the frontmost position of the array **/
-
+        
+        // Return the element from the front of the queue.
+        return data[front];
         
     }
 
@@ -144,6 +205,8 @@ public class ArrayCircularQueue<E> implements QueueADT<E> {
     public int size() {
         //TODO return the size of the Queue
         
+        // Return the size of the queue.
+        return size;
 
     }
 }

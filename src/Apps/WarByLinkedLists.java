@@ -74,12 +74,16 @@ public class WarByLinkedLists {
                 //TODO pop off a card on top of stack1 and 
                 //insert it to winner's pile in hand
                 
+                // Enqueue cards into the winners pile from the top of stack 1.
+                winner.enqueue(stack1.pop());
 
             }
             while (!(stack2.isEmpty())) {
                 //TODO pop off a card on top of stack2 and 
                 //insert it to winner's pile in hand
-
+                
+                // Enqueue cards into the winners pile from the top of stack 2.
+               winner.enqueue(stack2.pop());
 
             }
         } 
@@ -114,11 +118,17 @@ public class WarByLinkedLists {
         try {
             //TODO initialize stack1 and stack2
             
+            // Create a new ArrayStack for stack1 and stack2
+            StackADT<Card> stack1 = new ArrayStack<Card>();
+            StackADT<Card> stack2 = new ArrayStack<Card>();
 
 
             //TODO deal a card from the pile of each player 
             //to stack1 and stack2 respectively
             
+            // Push onto each stack by dequeuing each players hand.
+            stack1.push(hand1.dequeue());
+            stack2.push(hand2.dequeue());
 
 
 

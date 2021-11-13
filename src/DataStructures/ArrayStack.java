@@ -31,7 +31,11 @@ public class ArrayStack<E> implements StackADT<E> {
     public ArrayStack() {
         //TODO Instantiate the array-based data collection
         // with the default capacity constant, DEFAULT_CAPACITY
+        
+        // Create a new data array with the default capacity.
         this.data = (E[])(new Object[DEFAULT_CAPACITY]);
+        
+        // Set top to a default value.
         this.top = 0;
     }
 
@@ -46,7 +50,11 @@ public class ArrayStack<E> implements StackADT<E> {
         }
 
         //TODO Add targer to the top of the stack (data array)
+        
+        // Set the top equal to the new element.
         data[top] = target;
+        
+        // Increase the number of items in the stack.
         top++;
     }
 
@@ -73,10 +81,17 @@ public class ArrayStack<E> implements StackADT<E> {
 
         //TODO Remove and return the top item on the stack 
         //(data array)
+        
+        // Decrease the number of items in the stack.
         top--;
+        
+        // Get the data from the current top of the stack.
         E result = data[top];
+        
+        // Set the data from the current top of the stack to null
         data[top] = null;
-
+        
+        // Return the popped data.
         return result;
     }
     
@@ -93,7 +108,8 @@ public class ArrayStack<E> implements StackADT<E> {
         //TODO Retrieve element at the end of the stack 
         //(index of the data array: top -1) 
         //Do not modify the Stack.
-
+        
+        // Return the top of the stack.
         return data[top-1];
         
 
@@ -107,6 +123,8 @@ public class ArrayStack<E> implements StackADT<E> {
     @Override
     public boolean isEmpty() {
         //TODO Evaluate whether the stack is empty
+        
+        // Return that the number of items in thes tack is == 0
         return (top == 0);
 
     }
@@ -118,6 +136,8 @@ public class ArrayStack<E> implements StackADT<E> {
      */
     protected boolean isFull() {
         //TODO Evaluate whether the queue is full
+        
+        // Return that the number of items in the stack is equal to the capacity of the array.
         return (top == data.length);
 
     }
@@ -130,6 +150,8 @@ public class ArrayStack<E> implements StackADT<E> {
     public int size() {
         //TODO return the size of the stack, identified by 
         //the variable top
+        
+        // Return the number of items in the stack.
         return top;
 
     }

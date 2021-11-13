@@ -14,10 +14,10 @@ import ADTs.QueueADT;
  */
 public class LinkedQueue<T> implements QueueADT<T> {
     /* front: the beginning of the queue */
-    private SinglyLinkedNode<T> front;
+    private SinglyLinkedNode<T> front = new SinglyLinkedNode<>();
     
     /* rear: the end of the queue */
-    private SinglyLinkedNode<T> rear;
+    private SinglyLinkedNode<T> rear = new SinglyLinkedNode<>();
     
     /* size: the number of elements in the queue */
     private int size;
@@ -28,9 +28,9 @@ public class LinkedQueue<T> implements QueueADT<T> {
     public LinkedQueue() {
         //TODO Instantiate the linked list-based data 
         //collection
-        this.front = null;
-        this.rear = null;
-        this.size = 0;
+        front = null;
+        rear = null;
+        size = 0;
     }
     
     /**
@@ -46,16 +46,24 @@ public class LinkedQueue<T> implements QueueADT<T> {
          * the rear of the queue
         **/
 
-        SinglyLinkedNode<T> temp = new SinglyLinkedNode<>();
-        temp.setElement(target);
-        if (size == 0) {
-            temp = this.front;
-            temp = this.rear;
-            this.size += 1;
+        // Reference node for old rear.
+        SinglyLinkedNode<T> temp = rear;
+        
+        // Set new rears values.
+        rear = new SinglyLinkedNode<T>();
+        rear.setElement(target);
+        rear.setNext(null);
+        
+        // If the queue is empty, set the front equal to the rear.
+        if (isEmpty()) {
+            front = rear;
         } else {
-            this.rear.setNext(temp);
-            this.rear = temp;
+            // Set the old rear's next equal to the newly created node at the rear.
+            temp.setNext(rear);
         }
+        
+        // Increase the size of the queue.
+        size++;
     }
     
     /**
@@ -69,19 +77,28 @@ public class LinkedQueue<T> implements QueueADT<T> {
         * Then remove the data item from the queue
         * Do not forget to change the size
         **/
-        SinglyLinkedNode<T> temp = new SinglyLinkedNode<>();
-
+        
+        // Get the data from the current front of the queue.
+        T temp = front.getElement();
+        
+        // Set the new front to the next node in the queue.
+        front = front.getNext();
+        
+        // Check if queue is empty.
         if (isEmpty()) {
+            
+            // Set rear to null
+            rear = null;
+            
+            // Throw empty collection exception.
             throw new EmptyCollectionException();
-        } else if(this.size == 1){
-            this.front = null;
-            this.rear = null;
-            this.size -= 1;
-        } else {
-            temp.setElement(this.front.getElement());
-            this.front = this.front.getNext();
         }
-        return temp.getElement();
+        
+        // Reduce the size of the queue
+        size--;
+        
+        // Return the dequeued element
+        return temp;
     }
     
     /**
@@ -92,7 +109,9 @@ public class LinkedQueue<T> implements QueueADT<T> {
     @Override
     public boolean isEmpty() {
         //TODO Evaluate whether the queue is empty
-        return this.size == 0;
+        
+        // Return the boolean of if the size is equal to 0.
+        return size == 0;
 
     }
     
@@ -109,7 +128,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
         }
 
         /**TODO return element in the frontmost position of the array **/
-        return this.front.getElement();
+        return front.getElement();
         
     }
     
@@ -120,6 +139,8 @@ public class LinkedQueue<T> implements QueueADT<T> {
     @Override
     public int size() {
         //TODO return the size of the Queue
+        
+        // Return the size of the queue.
         return this.size;
 
     }
